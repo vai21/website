@@ -89,3 +89,23 @@ const { count, rows } = await Project.findAndCountAll({
 console.log(count);
 console.log(rows);
 ```
+
+When use `include` inside this `findAndCountAll` function you can add `distinct: true` to make the count number same with rows length:
+
+```js
+const { count, rows } = await Project.findAndCountAll({
+  include: [{
+    model: AnotherModel
+  }],
+  where: {
+    title: {
+      [Op.like]: 'foo%',
+    },
+  },
+  offset: 10,
+  limit: 2,
+  distinct: true
+});
+console.log(count);
+console.log(rows);
+```
